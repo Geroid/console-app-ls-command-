@@ -8,5 +8,6 @@
 
 import Foundation
 
-
+let utility = Utility()
+utility.staticMode()
 
