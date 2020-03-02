@@ -2,7 +2,7 @@
 Distillery lab
 
 ## Future plans:
-1. add new branch
+1. <del>add new branch</del>
 2. add main logic
 3. add 2 flags:
     * -a (shows hidden files in the list)
