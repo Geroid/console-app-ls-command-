@@ -9,3 +9,4 @@ Distillery lab
     * <del>-l (shows files additional info)<del>
     * -h (help info)
 4. make pull requests
+5. fix code style!!!
