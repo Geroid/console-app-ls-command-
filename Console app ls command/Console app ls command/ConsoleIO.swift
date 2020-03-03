@@ -19,22 +19,22 @@ class ConsoleIO {
     {
         switch to {
         case .standart:
-            print("\(message)")
+            print("\u{001B}[;m\(message)")
         case .error:
-            fputs("Error: \(message)\n", stderr)
+            fputs("u{001B}[0;31m\(message)\n", stderr)
         }
     }
     
     func printUsage() {
-
-      let executableName = (CommandLine.arguments[0] as NSString).lastPathComponent
-            
-      writeMessage("usage:")
-      writeMessage("\(executableName) -a")
-      writeMessage("or")
-      writeMessage("\(executableName) -l")
-      writeMessage("or")
-      writeMessage("\(executableName) -h to show usage information")
-      writeMessage("Type \(executableName) without an option to enter interactive mode.")
+        
+        let executableName = (CommandLine.arguments[0] as NSString).lastPathComponent
+        
+        writeMessage("usage:")
+        writeMessage("\(executableName) -a")
+        writeMessage("or")
+        writeMessage("\(executableName) -l")
+        writeMessage("or")
+        writeMessage("\(executableName) -h to show usage information")
+        writeMessage("Type \(executableName) without an option to enter interactive mode.")
     }
 }

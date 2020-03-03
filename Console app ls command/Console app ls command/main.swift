@@ -9,5 +9,9 @@
 import Foundation
 
 let utility = Utility()
-utility.staticMode()
 
+if CommandLine.argc < 2 {
+    utility.interactiveMode()
+} else {
+    utility.staticMode()
+}

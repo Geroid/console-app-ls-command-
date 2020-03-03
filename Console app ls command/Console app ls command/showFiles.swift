@@ -9,15 +9,16 @@
 import Foundation
 
 struct FileDescription: Codable {
-    var ownerAccountName: String
     var referenceCount: Int
+    var ownerAccountName: String
     var fileSize: UInt64
     var modificationDate: Date
-    var fileName: String
 }
+
 
 let fm = FileManager.default
 let path = Bundle.main.resourcePath!
+
 
 func defaultLs() {
     do {
@@ -30,37 +31,40 @@ func defaultLs() {
     }
 }
 
-func attributes(url: String) -> String
+extension String {
+    func additionalLs() {
+        let path = Bundle.main.resourcePath!
+        do {
+            let files = try fm.contentsOfDirectory(atPath: path)
+            for file in files {
+                print("""
+                    \(file) \(attributes(url: file).referenceCount) \
+                    \(attributes(url: file).ownerAccountName) \
+                    \(attributes(url: file).fileSize) \
+                    \(attributes(url: file).modificationDate)
+                    """)
+            }
+        } catch {
+            print("Permission denied")
+        }
+    }
+    
+    func hiddenLs() {
+        let skipsFilesHidden = false
+        let paths = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        let items = try! fm.contentsOfDirectory(at: paths, includingPropertiesForKeys: nil, options: skipsFilesHidden ? .skipsHiddenFiles : [])
+        for item in items {
+            print("\(item.lastPathComponent)")
+        }
+    }
+}
+
+func attributes(url: String) -> FileDescription
 {
     let fileAttributes = try! fm.attributesOfItem(atPath: url)
-    // need fix result var style
-    let result: String = "\(fileAttributes[.ownerAccountName] ?? "NOT FOUND") "
-        + "\(fileAttributes[.referenceCount] ?? "NO REFERENCE") "
-        + "\(fileAttributes[.modificationDate] ?? "WRONG DATE") "
-        + "\(fileAttributes[.size] ?? "WRONG SIZE")"
-    return result
-}
-
-func additionalLs() {
-    do {
-        let files = try fm.contentsOfDirectory(atPath: path)
-        for file in files {
-            print("\(file) \(attributes(url: file))")
-        }
-    } catch {
-        print("Permission denied")
-    }
-}
-
-func hiddenLs() {
-    let docUrl = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-    do {
-        let items = try fm.contentsOfDirectory(at: docUrl, includingPropertiesForKeys: nil)
-        
-        for item in items {
-            print("\(item)")
-        }
-    } catch {
-        print("Permission denied")
-    }
+    let fileDesc = FileDescription(referenceCount: fileAttributes[.referenceCount] as! Int? ?? 0,
+                                   ownerAccountName: fileAttributes[.ownerAccountName] as! String? ?? "NOT FOUND",
+                                   fileSize: fileAttributes[.size] as! UInt64? ?? 0,
+                                   modificationDate: fileAttributes[.modificationDate] as! Date)
+    return fileDesc
 }
