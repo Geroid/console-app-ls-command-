@@ -15,10 +15,8 @@ struct FileDescription: Codable {
     var modificationDate: Date
 }
 
-
 let fm = FileManager.default
 let path = Bundle.main.resourcePath!
-
 
 func defaultLs() {
     do {

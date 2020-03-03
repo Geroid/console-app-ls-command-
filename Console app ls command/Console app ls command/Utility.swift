@@ -57,7 +57,7 @@ class Utility {
                 s.hiddenLs()
             }
         case .help:
-                consoleIO.printUsage()
+            consoleIO.printUsage()
         case.unknown:
             consoleIO.writeMessage("Unkown option \(value)")
             consoleIO.printUsage()
@@ -65,7 +65,7 @@ class Utility {
     }
     
     func interactiveMode() {
-         defaultLs()
+        defaultLs()
     }
     
     func getOption(_ option: String) -> (option: OptionType, value: String) {
