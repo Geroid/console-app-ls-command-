@@ -8,5 +8,5 @@ Distillery lab
     * <del>-a (shows hidden files in the list)</del>
     * <del>-l (shows files additional info)</del>
     * <del>-h (help info)</del>
-4. make pull requests
-5. fix code style!!!
+4. <del>make pull requests</del>
+5. <del>fix code style!!!</del>
